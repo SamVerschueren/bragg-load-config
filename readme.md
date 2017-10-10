@@ -59,6 +59,12 @@ Default: `process.cwd()`
 Working directory of the config file.
 
 
+## Related
+
+- [bragg](https://github.com/SamVerschueren/bragg) - Serverless web framework for AWS λ.
+- [bragg-env](https://github.com/SamVerschueren/bragg-env) - Environment middleware for bragg.
+
+
 ## License
 
 MIT © [Sam Verschueren](https://github.com/SamVerschueren)
