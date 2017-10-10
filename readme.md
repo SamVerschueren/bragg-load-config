@@ -51,18 +51,6 @@ Path to the config file.
 
 #### options
 
-##### mode
-
-Type: `string`
-
-Checks if the function is running the provided mode. If this is the case, the config data is transformed based on this mode. This means that SNS topic ARNs will be suffixed with the mode, and lambda aliases will be prefixed.
-
-##### transform
-
-Type: `function`
-
-Function which accepts the value of the config file and should return the new file.
-
 ##### cwd
 
 Type: `string`<br>

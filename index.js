@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
 const loadJsonFile = require('load-json-file');
-const runningInMode = require('./lib/running-in-mode');
+const extractMode = require('./lib/extract-mode');
 const transform = require('./lib/transform');
 
 module.exports = (filePath, opts) => {
@@ -11,14 +11,6 @@ module.exports = (filePath, opts) => {
 
 	if (typeof filePath !== 'string') {
 		throw new TypeError(`Expected \`filePath\` to be of type \`string\`, got \`${typeof filePath}\``);
-	}
-
-	if (opts.mode && typeof opts.mode !== 'string') {
-		throw new TypeError(`Expected \`mode\` to be of type \`string\`, got \`${typeof opts.mode}\``);
-	}
-
-	if (opts.transform && typeof opts.transform !== 'function') {
-		throw new TypeError(`Expected \`transform\` to be of type \`function\`, got \`${typeof opts.transform}\``);
 	}
 
 	return ctx => {
@@ -31,16 +23,12 @@ module.exports = (filePath, opts) => {
 			return;
 		}
 
-		if (!opts.mode) {
-			// Return the correct config if no mode is specified
-			ctx.config = config[env];
-			return;
-		}
-
 		config = config[env];
 
-		if (runningInMode(ctx, opts.mode)) {
-			config = transform(config, opts);
+		const mode = extractMode(ctx);
+
+		if (mode) {
+			config = transform(config, Object.assign({}, opts, {mode}));
 		}
 
 		ctx.config = config;
