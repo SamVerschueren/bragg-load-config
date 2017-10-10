@@ -1,0 +1,7 @@
+{
+	"prod": {
+		"foo": "bar",
+		"FooService": "foo:v0",
+		"FooTopicARN": "arn:aws:sns:eu-west-1:123456789012:Foo"
+	}
+}

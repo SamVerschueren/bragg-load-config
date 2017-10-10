@@ -1,0 +1,40 @@
+{
+  "name": "bragg-load-config",
+  "version": "0.0.0",
+  "description": "Load a config file based upon the environment",
+  "license": "MIT",
+  "repository": "SamVerschueren/bragg-load-config",
+  "author": {
+    "name": "Sam Verschueren",
+    "email": "sam.verschueren@gmail.com",
+    "url": "github.com/SamVerschueren"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "files": [
+		"index.js",
+		"lib"
+  ],
+  "keywords": [
+		"bragg",
+		"aws",
+		"lambda",
+		"config",
+		"conf",
+		"environment",
+		"env"
+  ],
+  "dependencies": {
+    "is-plain-obj": "^1.1.0",
+    "is-sns-topic-arn": "^1.0.0",
+    "load-json-file": "^3.0.0"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "xo": "*"
+  }
+}
