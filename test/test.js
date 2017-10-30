@@ -18,6 +18,11 @@ test('load entire file if no environment is set', t => {
 			foo: 'bar',
 			FooService: 'foo:v0',
 			FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo'
+		},
+		staging: {
+			foo: 'bar',
+			FooService: 'foo',
+			FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo'
 		}
 	});
 });
@@ -26,7 +31,8 @@ test('load correct environment if not running in specific mode', t => {
 	const ctx = {
 		env: 'prod',
 		context: {
-			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:unicorn:v0'
+			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:unicorn:v0',
+			functionName: 'unicorn'
 		}
 	};
 
@@ -43,7 +49,8 @@ test('transform config based on invoked function arn', t => {
 	const ctx = {
 		env: 'prod',
 		context: {
-			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:unicorn:e2e-v0'
+			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:unicorn:e2e-v0',
+			functionName: 'unicorn'
 		}
 	};
 
@@ -53,5 +60,23 @@ test('transform config based on invoked function arn', t => {
 		foo: 'bar',
 		FooService: 'foo:e2e-v0',
 		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo_E2E'
+	});
+});
+
+test('load correct environment if not running with any alias', t => {
+	const ctx = {
+		env: 'staging',
+		context: {
+			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:unicorn',
+			functionName: 'unicorn'
+		}
+	};
+
+	m('config.json', options)(ctx);
+
+	t.deepEqual(ctx.config, {
+		foo: 'bar',
+		FooService: 'foo',
+		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo'
 	});
 });
