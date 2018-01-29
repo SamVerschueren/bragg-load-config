@@ -38,6 +38,26 @@ app.use(ctx => {
 });
 ```
 
+### Overrides
+
+It's possible to override config data based upon the AWS Account ID.
+
+```json
+{
+	"_overrides": {
+		"123456789012": {
+			"FooService": "foo:v1"
+		}
+	},
+	"production": {
+		"FooService": "foo:v0"
+	}
+}
+```
+
+If the AWS Account ID matches `123456789012`, it will merge that config object with the specific environment config object.
+
+
 
 ## API
 

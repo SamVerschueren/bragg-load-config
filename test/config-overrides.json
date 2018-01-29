@@ -1,0 +1,17 @@
+{
+	"_overrides": {
+		"123456789015": {
+			"foo": "unicorn"
+		}
+	},
+	"staging": {
+		"foo": "bar",
+		"FooService": "foo",
+		"FooTopicARN": "arn:aws:sns:eu-west-1:123456789012:Foo"
+	},
+	"prod": {
+		"foo": "bar",
+		"FooService": "foo:v0",
+		"FooTopicARN": "arn:aws:sns:eu-west-1:123456789012:Foo"
+	}
+}

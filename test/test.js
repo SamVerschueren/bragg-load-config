@@ -30,6 +30,7 @@ test('load entire file if no environment is set', t => {
 test('load correct environment if not running in specific mode', t => {
 	const ctx = {
 		env: 'prod',
+		awsAccountId: '123456789012',
 		context: {
 			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:unicorn:v0',
 			functionName: 'unicorn'
@@ -48,6 +49,7 @@ test('load correct environment if not running in specific mode', t => {
 test('transform config based on invoked function arn', t => {
 	const ctx = {
 		env: 'prod',
+		awsAccountId: '123456789012',
 		context: {
 			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:unicorn:e2e-v0',
 			functionName: 'unicorn'
@@ -66,6 +68,7 @@ test('transform config based on invoked function arn', t => {
 test('load correct environment if not running with any alias', t => {
 	const ctx = {
 		env: 'staging',
+		awsAccountId: '123456789012',
 		context: {
 			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789012:function:unicorn',
 			functionName: 'unicorn'
@@ -76,6 +79,25 @@ test('load correct environment if not running with any alias', t => {
 
 	t.deepEqual(ctx.config, {
 		foo: 'bar',
+		FooService: 'foo',
+		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo'
+	});
+});
+
+test('override specific account config', t => {
+	const ctx = {
+		env: 'staging',
+		awsAccountId: '123456789015',
+		context: {
+			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789015:function:unicorn',
+			functionName: 'unicorn'
+		}
+	};
+
+	m('config-overrides.json', options)(ctx);
+
+	t.deepEqual(ctx.config, {
+		foo: 'unicorn',
 		FooService: 'foo',
 		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo'
 	});
