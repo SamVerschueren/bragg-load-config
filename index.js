@@ -14,7 +14,7 @@ module.exports = (filePath, opts) => {
 	}
 
 	return ctx => {
-		let config = loadJsonFile.sync(path.join(opts.cwd, filePath));
+		const config = loadJsonFile.sync(path.join(opts.cwd, filePath));
 		const env = ctx.env;
 
 		if (typeof env !== 'string') {
@@ -25,18 +25,18 @@ module.exports = (filePath, opts) => {
 
 		const accountOverrides = (config._overrides || {})['account:' + ctx.awsAccountId];
 
-		config = Object.assign({}, config[env], accountOverrides);
+		let result = Object.assign({}, config[env], accountOverrides);
 
 		const mode = extractMode(ctx);
 
 		if (mode) {
 			const modeOverrides = (config._overrides || {})['tag:' + mode];
 
-			config = Object.assign({}, config, modeOverrides);
+			result = Object.assign({}, result, modeOverrides);
 
-			config = transform(config, Object.assign({}, opts, {mode}));
+			result = transform(result, Object.assign({}, opts, {mode}));
 		}
 
-		ctx.config = config;
+		ctx.config = result;
 	};
 };

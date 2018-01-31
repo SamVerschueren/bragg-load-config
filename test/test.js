@@ -99,7 +99,7 @@ test('override specific account config', t => {
 	t.deepEqual(ctx.config, {
 		foo: 'unicorn',
 		FooService: 'foo',
-		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo'
+		FooTopicARN: 'Foo'
 	});
 });
 
@@ -117,7 +117,7 @@ test('override specific tag config', t => {
 	t.deepEqual(ctx.config, {
 		foo: 'bar',
 		FooService: 'foo',
-		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo_E2E'
+		FooTopicARN: 'Foo_E2E'
 	});
 });
 
@@ -136,6 +136,6 @@ test('override specific account and tag config', t => {
 	t.deepEqual(ctx.config, {
 		foo: 'unicorn',
 		FooService: 'foo',
-		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo_E2E'
+		FooTopicARN: 'Foo_E2E'
 	});
 });

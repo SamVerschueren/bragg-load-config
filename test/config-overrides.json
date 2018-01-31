@@ -4,17 +4,17 @@
 			"foo": "unicorn"
 		},
 		"tag:e2e": {
-			"FooTopicARN": "arn:aws:sns:eu-west-1:123456789012:Foo_E2E"
+			"FooTopicARN": "Foo_E2E"
 		}
 	},
 	"staging": {
 		"foo": "bar",
 		"FooService": "foo",
-		"FooTopicARN": "arn:aws:sns:eu-west-1:123456789012:Foo"
+		"FooTopicARN": "Foo"
 	},
 	"prod": {
 		"foo": "bar",
 		"FooService": "foo:v0",
-		"FooTopicARN": "arn:aws:sns:eu-west-1:123456789012:Foo"
+		"FooTopicARN": "Foo"
 	}
 }
