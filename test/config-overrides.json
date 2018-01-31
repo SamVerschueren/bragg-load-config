@@ -1,7 +1,10 @@
 {
 	"_overrides": {
-		"123456789015": {
+		"account:123456789015": {
 			"foo": "unicorn"
+		},
+		"tag:e2e": {
+			"FooTopicARN": "arn:aws:sns:eu-west-1:123456789012:Foo_E2E"
 		}
 	},
 	"staging": {

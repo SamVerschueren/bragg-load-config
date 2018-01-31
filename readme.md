@@ -45,7 +45,7 @@ It's possible to override config data based upon the AWS Account ID.
 ```json
 {
 	"_overrides": {
-		"123456789012": {
+		"account:123456789012": {
 			"FooService": "foo:v1"
 		}
 	},

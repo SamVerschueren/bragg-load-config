@@ -23,14 +23,18 @@ module.exports = (filePath, opts) => {
 			return;
 		}
 
-		const overrides = (config._overrides || {})[ctx.awsAccountId];
+		const accountOverrides = (config._overrides || {})['account:' + ctx.awsAccountId];
 
-		config = Object.assign({}, config[env], overrides);
+		config = Object.assign({}, config[env], accountOverrides);
 
 		const mode = extractMode(ctx);
 
 		if (mode) {
-			config = transform(Object.assign({}, config, overrides), Object.assign({}, opts, {mode}));
+			const modeOverrides = (config._overrides || {})['tag:' + mode];
+
+			config = Object.assign({}, config, modeOverrides);
+
+			config = transform(config, Object.assign({}, opts, {mode}));
 		}
 
 		ctx.config = config;

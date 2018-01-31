@@ -102,3 +102,40 @@ test('override specific account config', t => {
 		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo'
 	});
 });
+
+test('override specific tag config', t => {
+	const ctx = {
+		env: 'staging',
+		context: {
+			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789015:function:unicorn:e2e-v0',
+			functionName: 'unicorn'
+		}
+	};
+
+	m('config-overrides.json', options)(ctx);
+
+	t.deepEqual(ctx.config, {
+		foo: 'bar',
+		FooService: 'foo',
+		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo_E2E'
+	});
+});
+
+test('override specific account and tag config', t => {
+	const ctx = {
+		env: 'staging',
+		awsAccountId: '123456789015',
+		context: {
+			invokedFunctionArn: 'arn:aws:lambda:us-east-1:123456789015:function:unicorn:e2e-v0',
+			functionName: 'unicorn'
+		}
+	};
+
+	m('config-overrides.json', options)(ctx);
+
+	t.deepEqual(ctx.config, {
+		foo: 'unicorn',
+		FooService: 'foo',
+		FooTopicARN: 'arn:aws:sns:eu-west-1:123456789012:Foo_E2E'
+	});
+});
